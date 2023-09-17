@@ -8,6 +8,8 @@
 from selenium import webdriver
 import pandas as pd
 import pandas
+import re
+
 import csv
 from time import sleep
 from selenium.webdriver.common.action_chains import ActionChains
@@ -39,6 +41,24 @@ import time
 
 df = pd.read_csv('C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\\Phase1\\fulton_data.csv')
 #df_1 = pd.read_csv('C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\\Phase1\\fulton_statement_data.csv')
+
+#import csv statement data from Rscript
+st = pd.read_csv('C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\\Phase1\\fulton_statement_data.csv')
+
+
+
+#extract values from first column
+st = st[st.columns[0]]
+
+#covnert to string
+#result = str(st)
+
+#convert to list
+result = st.values.tolist()
+
+#list = result.replace('\\\\', '\\\\')
+
+
 
 #convert to character string so send_keys
 df['bedrooms_num'] = df.bedrooms_num.astype(str)
@@ -112,7 +132,7 @@ user_ID_box = driver.find_element(By.XPATH, '//*[@id="email"]')
 # send user name (email) to user_ID_box
 
 # send username to the UserID box
-user_ID_box.send_keys("7085069967")
+user_ID_box.send_keys("ruejmcc22@hotmail.com")
 
 # give page to load
 #time.sleep(5)
@@ -120,7 +140,7 @@ user_ID_box.send_keys("7085069967")
 # find element for password field
 PasswordBox = driver.find_element(By.CSS_SELECTOR, '#pass')
 # send password password field
-PasswordBox.send_keys("198806!Sar!!!")
+PasswordBox.send_keys("##LadyGaga22!##")
 
 #find element for log-in button
 
@@ -130,7 +150,7 @@ log_in = driver.find_element(By.XPATH, '//*[@id="loginbutton"]')
 log_in.click()
 
 # give page time to fully load
-time.sleep(35)
+#time.sleep(35)
 
 
 driver.get("https://www.facebook.com/marketplace/create/rental")
@@ -168,36 +188,24 @@ dir_list_sin_gecko= dir_list[:-1]
 
 
 #paste file directory into each element of list with file names
-result = [path + direction for direction in dir_list_sin_gecko]
+#result = [path + direction for direction in dir_list_sin_gecko]
 
     
 
 
-
+#list = ['C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\IMG\\eugene_field_albany_park_1.jpg.1000x450_q90_crop.jpg','C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\IMG\\storage.googleapis.com%2Ffgr-prod-public%2Fconnect%2Flistings%2F40774%2Fimages%2F1694631005-FG_RBP_Flyer_UPDATED-OPTION1.jpeg']
 
 #time.sleep(5)
 
 #############################################################################################################################################################################################################
 #upload photos
-wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys('C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\IMG\\1693930094-1626186274-1626186209-1623776460-1623776421-1620917527-1615992738-1615992690-1615992647-1615992629-1613398778-85034_981618.jpg')
-wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys('C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\IMG\\1693930094-1626186274-1626186209-1623776460-1623776421-1620917528-1615992738-1615992691-1615992647-1615992629-1613398779-85034_981619.jpg')
-wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys('C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\IMG\\1693930094-1626186274-1626186210-1623776460-1623776421-1620917528-1615992738-1615992691-1615992647-1615992630-1613398779-85034_981620.jpg')
-wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys('C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\IMG\\1693930095-1626186274-1626186210-1623776460-1623776421-1620917528-1615992738-1615992691-1615992647-1615992630-1613398780-85034_981621.jpg')
-wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys('C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\IMG\\1693930095-1626186275-1626186210-1623776460-1623776421-1620917528-1615992739-1615992691-1615992648-1615992630-1613398780-85034_981622.jpg')
-wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys('C:\\Users\\Open\\Documents\\FultonGrace\\FultonGrace\IMG\\1693930095-1626186275-1626186210-1623776461-1623776422-1620917528-1615992739-1615992692-1615992648-1615992630-1613398780-85034_981623.jpg')
+for i in result:
+  wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(i)
+
+
 #############################################################################################################################################################################################################
 
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file1)
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file2)
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file3)
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file4)
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file5)
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file6)
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file7)
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file8)
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file9)
-#wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='file']"))).send_keys(file10)
-
+time.sleep(15)
 #path to clear duplicates##########################################
 dup1 = ".xsgj6o6:nth-child(1) .x1yrsyyn"
 
@@ -247,11 +255,11 @@ if img_count == 3:
   
 #upload 2 photos
 if img_count == 2:
-  x = list(range(1))  # if you want a real list
+  x = list(range(1+1))  # if you want a real list
   
 #upload 1 photos
 if img_count == 1:
-  x = list(range(44+1))  # if you want a real list
+  x = list(range(0))  # if you want a real list
   
   
   
@@ -451,11 +459,94 @@ driver.execute_script("arguments[0].scrollIntoView(true);", dog_scroll)
 if dog:
   wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div[1]/div/div[3]/div[1]/div[2]/div/div/div[20]/div/div/input'))).click()
 
-  
+#click next button  
 wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.x6s0dn4:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)'))).click()
-wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.x6s0dn4:nth-child(4) > div:nth-child(2) > div:nth-child(1)'))).click()
-  
 
+#inject javascript to scroll button into view of viewport before interacting 
+#find element for group box
+#chicago_scroll_1 = driver.find_element(By.CSS_SELECTOR,'.xjpr12u div:nth-child(2) .x1ja2u2z .x1ja2u2z .xzsf02u')
+#driver.execute_script("arguments[0].scrollIntoView(true);",chicago_scroll_1 )
+#Click Publish button
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.x6s0dn4:nth-child(4) > div:nth-child(2) > div:nth-child(1)'))).click()
+time.sleep(15)
+driver.quit()  
+
+
+#
+
+
+#Select Rooms & Apartments for Rent Chicago
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.xjpr12u div:nth-child(2) .x1ja2u2z .x1ja2u2z .xzsf02u'))).click()
+
+
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.x6s0dn4:nth-child(4) > div:nth-child(2) > div:nth-child(1)'))).click()
+
+
+driver.quit()  
+
+
+#inject javascript to scroll button into view of viewport before interacting 
+#find element for group box
+chicago_scroll_2 = driver.find_element(By.CSS_SELECTOR,'div:nth-child(5) .x1a2a7pz .x1gg8mnh')
+driver.execute_script("arguments[0].scrollIntoView(true);",chicago_scroll_2)
+
+#Select Apartments for Rent/Sale Chicago
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div:nth-child(5) .x1a2a7pz .x1gg8mnh'))).click()
+
+#inject javascript to scroll button into view of viewport before interacting 
+#find element for group box
+chicago_scroll_3 = driver.find_element(By.CSS_SELECTOR,'div:nth-child(6) .x1a2a7pz .x1gg8mnh')
+driver.execute_script("arguments[0].scrollIntoView(true);",chicago_scroll_3)
+
+
+#Select Chicago Rent Apartments Houses Rooms
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div:nth-child(6) .x1a2a7pz .x1gg8mnh'))).click()
+
+#inject javascript to scroll button into view of viewport before interacting 
+#find element for group box
+chicago_scroll_4 = driver.find_element(By.CSS_SELECTOR,'div:nth-child(9) .x1a2a7pz .x1gg8mnh')
+driver.execute_script("arguments[0].scrollIntoView(true);",chicago_scroll_4)
+
+
+#Select Chicago - ChiTown Market Place
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div:nth-child(9) .x1a2a7pz .x1gg8mnh'))).click()
+
+#inject javascript to scroll button into view of viewport before interacting 
+#find element for group box
+chicago_scroll_5 = driver.find_element(By.CSS_SELECTOR,'div:nth-child(10) .x1a2a7pz .x1gg8mnh')
+driver.execute_script("arguments[0].scrollIntoView(true);",chicago_scroll_5)
+
+
+#Select Lakeview Makretplace 
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div:nth-child(10) .x1a2a7pz .x1gg8mnh'))).click()
+
+#inject javascript to scroll button into view of viewport before interacting 
+#find element for group box
+chicago_scroll_6 = driver.find_element(By.CSS_SELECTOR,'div:nth-child(11) .x1gg8mnh')
+driver.execute_script("arguments[0].scrollIntoView(true);",chicago_scroll_6)
+
+
+#Select Chicago Markeplace
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div:nth-child(11) .x1gg8mnh'))).click()
+
+#inject javascript to scroll button into view of viewport before interacting 
+#find element for group box
+chicago_scroll_7 = driver.find_element(By.CSS_SELECTOR,'div:nth-child(13) .x1gg8mnh')
+driver.execute_script("arguments[0].scrollIntoView(true);",chicago_scroll_7)
+
+
+#Select Chicago Apartments for Rent/Sale
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div:nth-child(13) .x1gg8mnh'))).click()
+
+#inject javascript to scroll button into view of viewport before interacting 
+#find element for group box
+chicago_scroll_8 = driver.find_element(By.CSS_SELECTOR,'div:nth-child(16) .x1gg8mnh')
+driver.execute_script("arguments[0].scrollIntoView(true);",chicago_scroll_8)
+
+
+
+#Select Chicago Apartments & Houses for Rent & Sale
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div:nth-child(16) .x1gg8mnh'))).click()
 
 
 

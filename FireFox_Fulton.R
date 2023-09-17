@@ -8,6 +8,7 @@
 #print(sys.executable)
 
 #load packages
+###########
 library(rvest)
 library(RSelenium)
 library(tidyverse)
@@ -22,7 +23,9 @@ library(rlist)
 library(jpeg)
 library(magick)
 library(seleniumPipes)
-
+########################
+system("docker start 8598164f201230fdb9abca60c40fab4a5e0a296fe6a8cddcbe2728502be5e92a")
+#system("docker stop 8598164f201230fdb9abca60c40fab4a5e0a296fe6a8cddcbe2728502be5e92a")
 #run to ensure R messages are printed in English
 Sys.setenv("LANG" = "en")
 
@@ -37,29 +40,26 @@ check_object <- function(object) {
       typeof(object),
       "\n")
 }
-
-# create dataframe for posting fields
-
-#posting_fields <- data.frame(Street_Number = street_num,
-
-
-#system("sudo docker pull selenium/standalone-firefox",wait=T)
-#Sys.sleep(5)
-#system("sudo docker run -d -p 4444:4444 selenium/standalone-firefox",wait=T)
 Sys.sleep(5)
 remDr <- remoteDriver(remoteServerAddr = "localhost",
                       port=4445L, 
                       browserName="firefox")
-Sys.sleep(5)
-#remDr <- remDr[["client"]]
-#remDr <-remDr$client
 remDr$open()
 
-
 #####################################################################  
+###########################################
+url <- c("https://www.fultongrace.com/home-details/2473960/750-north-rush-st-if812023-var-chicago-60611-il/")
+#####
+extra_text <-"
+\nVirtual Showing:
+https://youtu.be/wrFL1eZb3DU?si=ciFyc_2sw5MHN-wJ
 
-url <- c("https://www.fultongrace.com/home-details/2530440/940-w-winona-806-chicago-60640-il/")
-#url <- c("https://www.fultongrace.com/home-details/2473846/1000-north-lasalle-st-if812023-var-chicago-60610-il/")
+675+ credit and 3x rent in monthly income required for application.
+
+$75 pp application fee 
+Move in Fee & 1st mth rent paid at approval. 
+"
+################
 
 ###################
 remDr$navigate(url)
@@ -168,7 +168,7 @@ remDr$screenshot(display = TRUE, useViewer = TRUE, file = NULL)
   }
   
 #Add text to date string
-date_avaiable <-paste("Date Available", date_avaiable)
+date_avaiable <-paste("\nDate Available", date_avaiable)
 
 
   
@@ -186,32 +186,17 @@ date_avaiable <-paste("Date Available", date_avaiable)
     html_text # have rvest turn it into a dataframe
   description_text <- description[[1]][1] %>%
     as.character() %>%
+    #paste("\n") %>%
     print()
+  
+description_text <- paste("\n", description_text, sep = )  
   #add space to beginning of string
 #Append date string to beginning of description string
 
 #description_text <-  paste(date_avaiable, description_text)
 
 ###################
-extra_text <-"
-Uptown Neighborhood 
-—
-650-700+ credit required for application and 3x rent in monthly income required for application!
-—
-Fees: 
-Due at Application! 
-$75 processing fee pp 
-1st & 15th move in; prorated rent, 1st mth rent and $350pp MIF collected at approval
-—
-fitness room, water, sewer, trash, on site maintenance and recycling included
-—
-PET POLICY: - No aggressive breeds. 
-- Pets approved on a case by case basis.
-$350 per dog & $250 per cat
-
-Virtual Tour:
-https://youtube.com/shorts/XWtwDfN3y58?feature=shared
-"################
+################
 description_text <- paste(description_text,extra_text)
 
 
@@ -341,40 +326,27 @@ write_csv(fulton_data , file = "C:/Users/Open/Documents/FultonGrace/FultonGrace/
 download.file(img, destfile = basename(img), mode = 'wb') %>% #When you download binary files, you have to specify the mode to be binary, e.g.
       print(.,)
 
+#close session
+remDr$close()
+
+# stop the selenium server
+rm(remDr)
 
 ################  
-  # generate file names of images in IMG folder
-
-
-sring_1 <- "wait.until(EC.presence_of_element_located((By.XPATH, \"//input[@type='file']\"))).send_keys('"
-
+# generate file names of images in IMG folder
 file_vector <- list.files(path = "C:/Users/Open/Documents/FultonGrace/FultonGrace/IMG")
 
 p <- paste0("C:\\\\Users\\\\Open\\\\Documents\\\\FultonGrace\\\\FultonGrace\\IMG\\\\", file_vector)
 
-
-#append file names with closing ")""
-string <- "')"
-
-#concatenate file path and file names of images
-
-q <- paste(p,string) 
-
 #remove whitespace
-r <-  gsub(" ", "", q, fixed = TRUE)
+r <-  gsub(" ", "", p, fixed = TRUE)
 
-s <- paste0(sring_1,r)
-
-t <- as.data.frame(s)
+#convert to dataframe
+t <- as.data.frame(r)
 
 #export to csv
 write_csv(t , file = "C:/Users/Open/Documents/FultonGrace/FultonGrace/Phase1//fulton_statement_data.csv")
 
- #close session
-   remDr$close()
-  
-  # stop the selenium server
-  rm(remDr)
 #####################################################################  
 
 #Run python script to post to FaceBook MarketPlace
@@ -388,6 +360,11 @@ system(paste('C:/Users/Open/AppData/Local/Programs/Python/Python39/python.exe',
   file_names <- sprintf("C:/Users/Open/Documents/FultonGrace/FultonGrace/IMG/%s",  file_vector)
   file.remove(file_names)   # Apply file.remove
   
+
+
+
+
+
 
 
 
